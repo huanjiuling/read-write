@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seeker.mapper.ImMessageMapper">
+  <resultMap id="BaseResultMap" type="com.seeker.entity.ImMessage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="sender_id" jdbcType="INTEGER" property="senderId" />
+    <result column="receiver" jdbcType="INTEGER" property="receiver" />
+    <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, message, `status`, sender_id, receiver, is_del, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from im_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from im_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.seeker.entity.ImMessage" useGeneratedKeys="true">
+    insert into im_message (message, `status`, sender_id,
+      receiver, is_del, create_time,
+      update_time)
+    values (#{message,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{senderId,jdbcType=INTEGER},
+      #{receiver,jdbcType=INTEGER}, #{isDel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.seeker.entity.ImMessage" useGeneratedKeys="true">
+    insert into im_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="message != null">
+        message,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="senderId != null">
+        sender_id,
+      </if>
+      <if test="receiver != null">
+        receiver,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="senderId != null">
+        #{senderId,jdbcType=INTEGER},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seeker.entity.ImMessage">
+    update im_message
+    <set>
+      <if test="message != null">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="senderId != null">
+        sender_id = #{senderId,jdbcType=INTEGER},
+      </if>
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.seeker.entity.ImMessage">
+    update im_message
+    set message = #{message,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      sender_id = #{senderId,jdbcType=INTEGER},
+      receiver = #{receiver,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
